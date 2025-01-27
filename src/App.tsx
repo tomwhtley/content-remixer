@@ -1,12 +1,18 @@
 import { useState } from 'react'
+import { remixContent } from './services/api'
 
 function App() {
   const [inputText, setInputText] = useState('')
   const [outputText, setOutputText] = useState('')
 
   const handleRemix = async () => {
-    // TODO: Implement remixing logic
-    setOutputText('Remixed content will appear here...')
+    try {
+      setOutputText('Remixing...')
+      const remixedContent = await remixContent(inputText)
+      setOutputText(remixedContent)
+    } catch (error) {
+      setOutputText('Error remixing content. Please try again.')
+    }
   }
 
   return (
